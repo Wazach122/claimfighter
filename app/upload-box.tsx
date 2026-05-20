@@ -421,7 +421,7 @@ export default function UploadBox() {
     <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/70 sm:p-8">
       <div className="mx-auto max-w-2xl text-center">
         <p className="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
-          Secure document review
+          Upload your denial letter to see what it says in plain English.
         </p>
         <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
           Upload Your Denial Letter

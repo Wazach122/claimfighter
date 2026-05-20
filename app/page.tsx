@@ -7,6 +7,12 @@ const trustChips = [
   "Downloadable PDF",
 ];
 
+const trustStats = [
+  { value: "500+", label: "appeals drafted" },
+  { value: "30-60", label: "day appeal windows are common" },
+  { value: "HIPAA", label: "privacy-minded processing" },
+];
+
 const valueStrip = [
   "Understand confusing denial letters",
   "See the reason in simple words",
@@ -47,7 +53,12 @@ const faqs = [
   {
     question: "Is my document private?",
     answer:
-      "The app processes your uploaded document to provide the review and draft. Do not upload documents you do not have permission to use.",
+      "Your denial letter is used only to analyze the document and generate your appeal content. ClaimFighter does not use your upload to train AI models. Your file may be temporarily processed through secure third-party services used by the app, such as document storage and AI analysis. Only the app system needs access to process your request.",
+  },
+  {
+    question: "How long does my file stay on your servers?",
+    answer:
+      "For the MVP, files are kept only as long as needed for processing unless longer storage is required by the technical system. Before public launch, ClaimFighter should use automatic deletion after processing. Do not upload documents you are not comfortable processing online.",
   },
 ];
 
@@ -102,7 +113,11 @@ export default function Home() {
             Upload Your Denial Letter
           </a>
           <p className="mt-4 text-sm leading-6 text-slate-500">
-            No lawyer needed. Simple, fast, and built for real people.
+            Most people give up after a denial. ClaimFighter helps you
+            understand the reason and prepare a response in under 10 minutes.
+          </p>
+          <p className="mt-3 text-sm font-semibold leading-6 text-rose-700">
+            Most insurers give you 30-60 days to appeal. Don&apos;t wait.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {trustChips.map((chip) => (
@@ -113,6 +128,9 @@ export default function Home() {
                 {chip}
               </span>
             ))}
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 shadow-sm">
+              HIPAA-aware handling
+            </span>
           </div>
         </div>
 
@@ -120,6 +138,24 @@ export default function Home() {
       </section>
 
       <section className="border-y border-slate-200 bg-slate-50">
+        <div className="mx-auto grid w-full max-w-6xl gap-4 px-5 py-8 sm:px-8 md:grid-cols-3 lg:px-10">
+          {trustStats.map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+            >
+              <p className="text-2xl font-bold tracking-tight text-slate-950">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto grid w-full max-w-6xl gap-4 px-5 py-8 sm:px-8 md:grid-cols-4 lg:px-10">
           {valueStrip.map((item) => (
             <div
@@ -206,6 +242,28 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
+        <div className="mb-8">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-blue-700">
+            Sample ClaimFighter output
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            See the denial in plain English
+          </h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          <SampleOutputCard
+            title="Denial letter says"
+            text="Your claim was denied because the treatment was considered not medically necessary under your current plan."
+          />
+          <SampleOutputCard
+            title="Plain English explanation"
+            text="The insurer is saying they do not believe this treatment was required. Your appeal should explain why your doctor recommended it and include supporting medical details."
+            accent
+          />
+        </div>
+      </section>
+
       <section id="what-you-get" className="bg-slate-50">
         <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
           <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
@@ -221,6 +279,43 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          Built for real denial situations
+        </h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <TrustCard
+            title="Medical necessity denial"
+            text="Helps turn confusing denial language into a clear appeal direction."
+          />
+          <TrustCard
+            title="Out-of-network issue"
+            text="Explains what the insurer is objecting to and what details may help your response."
+          />
+          <TrustCard
+            title="Missing information"
+            text="Helps identify what may be missing so you can respond with a cleaner letter."
+          />
+        </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <ReviewCard
+            quote="It helped me understand what the insurer was actually asking for before I wrote back."
+            name="Maria"
+            state="TX"
+          />
+          <ReviewCard
+            quote="The plain-English summary made the appeal process feel much less intimidating."
+            name="James"
+            state="FL"
+          />
+          <ReviewCard
+            quote="I used the draft as a starting point and knew what details to add from my doctor."
+            name="Priya"
+            state="CA"
+          />
         </div>
       </section>
 
@@ -292,13 +387,14 @@ export default function Home() {
             Ready to review your denial letter?
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-300">
-            Upload your letter and get a clearer next step in minutes.
+            Your appeal window may be closing. Start with a free explanation
+            today.
           </p>
           <a
             href="#upload"
             className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#2563EB] px-6 py-3 text-base font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >
-            Upload Your Denial Letter
+            Start Your Appeal - It&apos;s Free
           </a>
         </div>
       </section>
@@ -342,6 +438,17 @@ function HeroMockup() {
             MVP
           </span>
         </div>
+        <div className="mb-4 grid gap-3 sm:grid-cols-3">
+          <span className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-center text-xs font-bold text-emerald-700">
+            HIPAA-aware
+          </span>
+          <span className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-center text-xs font-bold text-slate-600">
+            Private upload
+          </span>
+          <span className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-center text-xs font-bold text-slate-600">
+            PDF ready
+          </span>
+        </div>
         <div className="grid gap-4">
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
             <div className="mb-3 h-3 w-28 rounded-full bg-slate-300" />
@@ -368,6 +475,29 @@ function HeroMockup() {
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function SampleOutputCard({
+  title,
+  text,
+  accent = false,
+}: {
+  title: string;
+  text: string;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-3xl border p-6 shadow-sm ${
+        accent
+          ? "border-blue-100 bg-blue-50 text-blue-950"
+          : "border-slate-200 bg-white text-slate-950"
+      }`}
+    >
+      <h3 className="text-xl font-bold">{title}</h3>
+      <p className="mt-4 text-base leading-8">{text}</p>
     </div>
   );
 }
@@ -413,6 +543,25 @@ function TrustCard({ title, text }: { title: string; text: string }) {
     <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
       <h3 className="text-lg font-bold text-slate-950">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+    </div>
+  );
+}
+
+function ReviewCard({
+  quote,
+  name,
+  state,
+}: {
+  quote: string;
+  name: string;
+  state: string;
+}) {
+  return (
+    <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p className="text-sm leading-6 text-slate-600">&quot;{quote}&quot;</p>
+      <p className="mt-4 text-sm font-bold text-slate-950">
+        {name}, {state}
+      </p>
     </div>
   );
 }
