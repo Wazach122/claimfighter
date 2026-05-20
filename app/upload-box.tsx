@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
+import { HipaaBadge } from "./trust-badges";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png"];
@@ -487,6 +488,9 @@ export default function UploadBox() {
         Your file is sent through secure server-side processing. We do not show
         the uploaded file link on this page.
       </p>
+      <div className="mt-5">
+        <HipaaBadge />
+      </div>
 
       <button
         type="button"
