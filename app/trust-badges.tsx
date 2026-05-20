@@ -40,16 +40,3 @@ export function HipaaBadge() {
     </div>
   );
 }
-
-export function StarRatingBadge() {
-  return (
-    <div className="inline-flex items-center gap-2.5 rounded-lg border border-[#EF9F27] bg-[#FAEEDA] px-[14px] py-2">
-      <span className="text-[15px] leading-none text-[#BA7517]">
-        ★★★★★
-      </span>
-      <span className="text-[13px] font-medium leading-5 text-[#633806]">
-        4.9/5 — Rated by real users
-      </span>
-    </div>
-  );
-}

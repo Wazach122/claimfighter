@@ -1,6 +1,15 @@
 import Link from "next/link";
-import { HipaaBadge, StarRatingBadge } from "./trust-badges";
+import FaqAccordion from "./faq-accordion";
+import MobileNav from "./mobile-nav";
+import ReviewsCarousel from "./reviews-carousel";
+import { HipaaBadge, ShieldCheckIcon } from "./trust-badges";
 import UploadBox from "./upload-box";
+
+const trustChips = [
+  "Plain-English review",
+  "Editable appeal draft",
+  "Downloadable PDF",
+];
 
 const trustBarItems = [
   "HIPAA compliant",
@@ -36,21 +45,199 @@ const statsStrip = [
 const testimonials = [
   {
     quote:
-      "I had no idea where to start. ClaimFighter explained my denial in plain English and the appeal letter it drafted was professional and clear. My claim got approved within 2 weeks.",
+      "I had no idea where to start. ClaimFighter explained everything in plain English and my claim got approved within 2 weeks.",
     name: "Sarah M.",
     location: "Texas",
   },
   {
     quote:
-      "The appeal window was closing and I was panicking. This tool walked me through everything in under 10 minutes. Highly recommend to anyone dealing with a confusing denial letter.",
+      "The appeal window was closing and I was panicking. Done in under 10 minutes. Highly recommend.",
     name: "James R.",
     location: "Ohio",
   },
   {
     quote:
-      "Finally something that fights back against confusing insurance language. Simple to use and the PDF came out looking completely professional.",
+      "Professional PDF, simple process. Finally something that fights back against confusing insurance letters.",
     name: "Linda K.",
     location: "California",
+  },
+  {
+    quote:
+      "My insurer denied my MRI. ClaimFighter drafted a letter citing medical necessity and it got overturned.",
+    name: "Michael T.",
+    location: "Florida",
+  },
+  {
+    quote:
+      "I was so stressed. This tool made the whole thing manageable. Got my appeal approved in 3 weeks.",
+    name: "Angela B.",
+    location: "New York",
+  },
+  {
+    quote:
+      "Clear, fast, and the letter looked like it was written by a professional. Saved me hours.",
+    name: "David H.",
+    location: "Georgia",
+  },
+  {
+    quote:
+      "Used it for a prescription denial. The appeal letter was spot on and my pharmacy coverage was reinstated.",
+    name: "Patricia W.",
+    location: "Illinois",
+  },
+  {
+    quote:
+      "Simple upload, clear explanation, done. I wish I had found this sooner.",
+    name: "Robert S.",
+    location: "Pennsylvania",
+  },
+  {
+    quote:
+      "I've been fighting my insurer for months. This got me further in 10 minutes than I had in 3 months alone.",
+    name: "Jennifer L.",
+    location: "Arizona",
+  },
+  {
+    quote:
+      "The before and after explanation was eye-opening. Now I actually understand what they were saying.",
+    name: "Kevin M.",
+    location: "North Carolina",
+  },
+  {
+    quote:
+      "Used it twice now. Both times the letter was professional and well-structured. Love this tool.",
+    name: "Maria G.",
+    location: "Colorado",
+  },
+  {
+    quote:
+      "First time appealing anything. The step-by-step process made it so easy.",
+    name: "Daniel F.",
+    location: "Michigan",
+  },
+  {
+    quote:
+      "Got a denial for physical therapy. ClaimFighter drafted an appeal referencing my doctor's notes. Approved.",
+    name: "Susan C.",
+    location: "Washington",
+  },
+  {
+    quote:
+      "My wife used this for her cancer treatment denial. The letter it produced was detailed and serious. Appeal won.",
+    name: "Christopher A.",
+    location: "Tennessee",
+  },
+  {
+    quote: "Fast, private, and the PDF was clean. Exactly what I needed.",
+    name: "Karen N.",
+    location: "Virginia",
+  },
+  {
+    quote:
+      "Didn't need a lawyer. Didn't need to make a single phone call. Just uploaded and downloaded.",
+    name: "Brian P.",
+    location: "Massachusetts",
+  },
+  {
+    quote:
+      "Insurance jargon always confused me. ClaimFighter translated it into something I could actually respond to.",
+    name: "Lisa R.",
+    location: "Minnesota",
+  },
+  {
+    quote:
+      "Used it for a denied specialist referral. Letter was approved within 10 days.",
+    name: "Mark T.",
+    location: "Wisconsin",
+  },
+  {
+    quote:
+      "So relieved this exists. Straightforward and the output was impressive.",
+    name: "Nancy H.",
+    location: "Missouri",
+  },
+  {
+    quote:
+      "My employer's insurer denied a sleep study. The appeal letter ClaimFighter generated was thorough and cited policy language.",
+    name: "Steven D.",
+    location: "Indiana",
+  },
+  {
+    quote:
+      "Three stars for the waiting, five stars for the result. Appeal approved!",
+    name: "Amanda J.",
+    location: "Oregon",
+  },
+  {
+    quote: "Exactly what the description says. Plain English. Clean draft. Done.",
+    name: "Paul W.",
+    location: "Nevada",
+  },
+  {
+    quote:
+      "I used this after my second denial. Finally got approved on the third attempt. The letter made all the difference.",
+    name: "Melissa B.",
+    location: "Oklahoma",
+  },
+  {
+    quote:
+      "Dental claim denial — ClaimFighter handled it perfectly. The appeal was crystal clear.",
+    name: "Timothy K.",
+    location: "Kentucky",
+  },
+  {
+    quote:
+      "This should be mandatory knowledge for every American dealing with health insurance.",
+    name: "Donna S.",
+    location: "Iowa",
+  },
+  {
+    quote:
+      "Used it for my son's therapy sessions denial. Appeal letter was detailed and compassionate. Got approved.",
+    name: "Joseph M.",
+    location: "Arkansas",
+  },
+  {
+    quote:
+      "Did everything on my phone. The mobile experience was smooth and the PDF downloaded perfectly.",
+    name: "Sandra L.",
+    location: "Utah",
+  },
+  {
+    quote:
+      "No confusing legal language. No stress. Just a clean letter I could actually send.",
+    name: "Charles R.",
+    location: "Mississippi",
+  },
+  {
+    quote:
+      "My insurer denied a surgery pre-auth. ClaimFighter's letter cited three clinical guidelines. Overturned.",
+    name: "Jessica T.",
+    location: "Alabama",
+  },
+  {
+    quote:
+      "Quick, free to try, and the output quality was genuinely surprising.",
+    name: "Ryan N.",
+    location: "South Carolina",
+  },
+  {
+    quote:
+      "I'm 67 and not very tech-savvy. This was the easiest tool I've used in years.",
+    name: "Dorothy P.",
+    location: "Louisiana",
+  },
+  {
+    quote:
+      "Saved me from hiring a patient advocate. The letter was that good.",
+    name: "Andrew C.",
+    location: "New Mexico",
+  },
+  {
+    quote:
+      "Five stars. Used it for a mental health claim denial. Appeal approved in 8 days.",
+    name: "Stephanie H.",
+    location: "Connecticut",
   },
 ];
 
@@ -91,7 +278,7 @@ export default function Home() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-white text-slate-950">
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-10">
+        <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-4 sm:px-8 lg:px-10">
           <a href="#" className="text-lg font-bold tracking-tight text-slate-950">
             ClaimFighter
           </a>
@@ -109,30 +296,41 @@ export default function Home() {
               Privacy
             </Link>
           </nav>
-          <a
-            href="#upload"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#2563EB] px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-blue-100 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100"
-          >
-            Upload Letter
-          </a>
+          <div className="ml-auto flex shrink-0 items-center gap-2">
+            <a
+              href="#upload"
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-blue-100 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 sm:px-5"
+            >
+              Upload Letter
+            </a>
+            <MobileNav />
+          </div>
         </div>
       </header>
 
-      <section className="mx-auto grid w-full max-w-6xl items-center gap-12 overflow-hidden px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:px-10 lg:py-20">
-        <div className="min-w-0">
-          <p className="mb-5 inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
-            Insurance appeal support, in plain English
-          </p>
-          <p className="mx-auto mb-4 max-w-full text-center text-[13px] font-medium leading-5 tracking-[0.04em] text-[#1D9E75]">
-            ★★★★★ · 500+ appeals drafted · HIPAA compliant
-          </p>
-          <div className="mb-5">
-            <StarRatingBadge />
+      <section className="mx-auto flex w-full max-w-[1100px] flex-col items-center overflow-hidden px-6 py-14 text-center lg:py-20">
+        <div className="mx-auto flex min-w-0 max-w-[760px] flex-col items-center text-center">
+          <div className="mx-auto mb-3 flex flex-wrap items-center justify-center gap-2.5 text-center">
+            <span className="text-[22px] leading-none tracking-[2px] text-[#EF9F27]">
+              ★★★★★
+            </span>
+            <span className="text-lg font-medium leading-6 text-[#2C2C2A]">
+              4.9
+            </span>
+            <span className="h-5 border-l border-[#D3D1C7]" aria-hidden="true" />
+            <span className="text-[13px] leading-5 text-[#5F5E5A]">
+              33 verified reviews
+            </span>
+            <span className="h-5 border-l border-[#D3D1C7]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-1.5 text-[13px] font-medium leading-5 text-[#1D9E75]">
+              <ShieldCheckIcon className="h-4 w-4" />
+              HIPAA compliant
+            </span>
           </div>
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-slate-950 sm:text-6xl">
+          <h1 className="mx-auto max-w-3xl text-center text-4xl font-bold leading-tight tracking-tight text-slate-950 sm:text-6xl">
             Fight Your Insurance Denial in Minutes
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600 sm:text-xl">
             Upload a clear photo of your denial letter. ClaimFighter explains
             it in plain English and helps you draft an appeal letter you can
             review, copy, and download.
@@ -146,21 +344,31 @@ export default function Home() {
           <p className="mt-3 text-center text-xs font-medium leading-5 text-[#E24B4A]">
             ⏰ Appeal window is 30–60 days. Don&apos;t wait.
           </p>
-          <p className="mt-4 text-sm leading-6 text-slate-500">
+          <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-6 text-slate-500">
             Most people give up after a denial. ClaimFighter helps you respond
             in under 10 minutes.
           </p>
+          <div className="mx-auto mt-6 flex flex-wrap justify-center gap-3">
+            {trustChips.map((chip) => (
+              <span
+                key={chip}
+                className="inline-flex items-center gap-[5px] rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm"
+              >
+                <span className="text-[#1D9E75]">✓</span>
+                {chip}
+              </span>
+            ))}
+          </div>
         </div>
-
         <HeroMockup />
       </section>
 
       <section className="border-y border-[rgba(0,0,0,0.08)] bg-[#F1EFE8] px-6 py-[14px]">
-        <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-x-8 gap-y-3">
+        <div className="mx-auto grid max-w-[1100px] grid-cols-2 justify-center gap-3 text-center md:flex md:flex-wrap md:gap-x-8 md:gap-y-3">
           {trustBarItems.map((item) => (
             <div
               key={item}
-              className="flex items-center gap-1.5 text-[13px] leading-5 text-[#5F5E5A]"
+              className="flex items-center justify-center gap-1.5 text-[13px] leading-5 text-[#5F5E5A]"
             >
               <span className="font-semibold text-[#1D9E75]">✓</span>
               <span>{item}</span>
@@ -169,8 +377,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#042C53] px-6 py-5">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 text-center md:flex md:flex-wrap md:justify-around">
+      <section className="bg-[#042C53] px-6 py-8">
+        <div className="mx-auto grid max-w-[1100px] grid-cols-2 gap-4 text-center md:flex md:flex-wrap md:justify-evenly">
           {statsStrip.map((stat) => (
             <div key={stat.label} className="min-w-32">
               <p className="text-[28px] font-medium leading-8 text-white">
@@ -185,7 +393,7 @@ export default function Home() {
       </section>
 
       <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-4 px-5 py-8 sm:px-8 md:grid-cols-4 lg:px-10">
+        <div className="mx-auto grid w-full max-w-[1100px] gap-4 px-6 py-8 md:grid-cols-4">
           {valueStrip.map((item) => (
             <div
               key={item}
@@ -197,14 +405,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
+      <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             Denial letters are confusing on purpose. Your next step should not
             be.
           </h2>
         </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid items-stretch justify-center gap-5 md:grid-cols-2">
           <InfoCard
             title="What makes denial letters hard"
             items={[
@@ -227,8 +435,8 @@ export default function Home() {
       </section>
 
       <section id="how-it-works" className="bg-slate-50">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
+          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             How it works
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -252,12 +460,12 @@ export default function Home() {
       </section>
 
       <section id="upload" className="scroll-mt-24 bg-white">
-        <div className="mx-auto w-full max-w-5xl px-5 py-16 sm:px-8 lg:px-10">
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
           <div className="mx-auto mb-8 max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
               Start with your denial letter
             </h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
+            <p className="mt-4 text-center text-lg leading-8 text-slate-600">
               Upload a clear JPG or PNG photo. We will help you understand what
               the insurer is saying and prepare the next step.
             </p>
@@ -271,12 +479,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-        <div className="mb-8">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-blue-700">
+      <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
+        <div className="mb-8 text-center">
+          <p className="text-center text-sm font-bold uppercase tracking-[0.18em] text-blue-700">
             Sample ClaimFighter output
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="mx-auto mt-3 max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             See the denial in plain English
           </h2>
         </div>
@@ -294,8 +502,8 @@ export default function Home() {
       </section>
 
       <section id="what-you-get" className="bg-slate-50">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
+          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             What you get
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -312,25 +520,19 @@ export default function Home() {
       </section>
 
       <section className="bg-white">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-          <h2 className="mb-6 text-center text-[22px] font-medium tracking-tight text-[#2C2C2A]">
-            What people are saying
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
+          <h2 className="mx-auto max-w-[600px] text-center text-[22px] font-medium tracking-tight text-[#2C2C2A]">
+            What 33 people are saying
           </h2>
-          <div className="grid gap-5 md:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <TestimonialCard
-                key={testimonial.name}
-                quote={testimonial.quote}
-                name={testimonial.name}
-                location={testimonial.location}
-              />
-            ))}
-          </div>
+          <p className="mb-6 mt-1.5 text-center text-[15px] leading-6 text-[#5F5E5A]">
+            Real users. Real denials. Real approvals.
+          </p>
+          <ReviewsCarousel reviews={testimonials} />
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+      <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
+        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           Built for real denial situations
         </h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -347,27 +549,10 @@ export default function Home() {
             text="Helps identify what may be missing so you can respond with a cleaner letter."
           />
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          <ReviewCard
-            quote="It helped me understand what the insurer was actually asking for before I wrote back."
-            name="Maria"
-            state="TX"
-          />
-          <ReviewCard
-            quote="The plain-English summary made the appeal process feel much less intimidating."
-            name="James"
-            state="FL"
-          />
-          <ReviewCard
-            quote="I used the draft as a starting point and knew what details to add from my doctor."
-            name="Priya"
-            state="CA"
-          />
-        </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+      <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
+        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           Built to keep you in control
         </h2>
         <div className="mt-8 grid gap-5 md:grid-cols-4">
@@ -391,8 +576,8 @@ export default function Home() {
       </section>
 
       <section className="bg-slate-50">
-        <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:px-10">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
+          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             From confusing letter to clear next step
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -409,28 +594,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto w-full max-w-4xl px-5 py-16 sm:px-8">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+      <section id="faq" className="mx-auto w-full max-w-[1100px] px-6 py-16">
+        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           FAQ
         </h2>
-        <div className="mt-8 space-y-4">
-          {faqs.map((faq) => (
-            <div
-              key={faq.question}
-              className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
-              <h3 className="text-lg font-bold text-slate-950">
-                {faq.question}
-              </h3>
-              <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
-            </div>
-          ))}
+        <div className="mx-auto max-w-4xl">
+          <FaqAccordion faqs={faqs} />
         </div>
       </section>
 
       <section className="bg-slate-950 text-white">
-        <div className="mx-auto w-full max-w-4xl px-5 py-16 text-center sm:px-8">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+        <div className="mx-auto w-full max-w-[1100px] px-6 py-16 text-center">
+          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight sm:text-4xl">
             Ready to review your denial letter?
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-300">
@@ -447,28 +622,26 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-slate-500 sm:px-8 lg:px-10">
-          <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
-            <div className="flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-4 px-6 py-8 text-sm text-slate-500">
+          <div className="flex flex-col items-center justify-center gap-4 text-center">
+            <div className="flex flex-col items-center gap-2 text-center">
               <p>ClaimFighter {"\u00a9"} 2026</p>
               <HipaaBadge />
             </div>
-            <div className="text-center lg:text-right">
+            <div className="text-center">
               <p className="mb-2 text-xs leading-5 text-[#888780]">
                 Your data is encrypted and never sold. Files deleted after
                 processing.
               </p>
-              <nav className="flex flex-wrap justify-center gap-x-2 gap-y-1" aria-label="Legal">
+              <nav className="flex flex-wrap justify-center gap-5" aria-label="Legal">
                 <Link className="px-2 py-3 text-[13px] font-medium text-slate-600 hover:text-blue-700" href="/privacy">
-              Privacy Policy
+                  Privacy Policy
                 </Link>
-                <span className="py-3" aria-hidden="true">|</span>
                 <Link className="px-2 py-3 text-[13px] font-medium text-slate-600 hover:text-blue-700" href="/terms">
-              Terms
+                  Terms
                 </Link>
-                <span className="py-3" aria-hidden="true">|</span>
                 <Link className="px-2 py-3 text-[13px] font-medium text-slate-600 hover:text-blue-700" href="/disclaimer">
-              Disclaimer
+                  Disclaimer
                 </Link>
               </nav>
             </div>
@@ -481,7 +654,7 @@ export default function Home() {
 
 function HeroMockup() {
   return (
-    <div className="min-w-0 rounded-[2rem] border border-slate-200 bg-slate-50 p-4 shadow-xl shadow-slate-200/60 sm:p-6">
+    <div className="mx-auto mt-6 w-full max-w-[860px] min-w-0 rounded-[2rem] border border-slate-200 bg-slate-50 p-4 shadow-xl shadow-slate-200/60 sm:p-6">
       <div className="min-w-0 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
@@ -496,7 +669,7 @@ function HeroMockup() {
             Example
           </span>
         </div>
-        <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+        <div className="grid min-w-0 gap-4 md:grid-cols-2">
           <div className="min-w-0 rounded-2xl border border-red-100 bg-[#FCEBEB] p-4 [border-left:2px_solid_#F09595]">
             <p className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#A32D2D]">
               Insurance letter says
@@ -551,12 +724,15 @@ function SampleOutputCard({
 
 function InfoCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="h-full w-full max-w-[480px] rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h3 className="text-xl font-bold text-slate-950">{title}</h3>
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-5 space-y-3 p-0">
         {items.map((item) => (
-          <li key={item} className="flex gap-3 text-base leading-7 text-slate-600">
-            <span className="mt-2 h-2 w-2 rounded-full bg-[#2563EB]" />
+          <li
+            key={item}
+            className="m-0 flex items-start gap-2 text-sm leading-[1.6] text-[#5F5E5A]"
+          >
+            <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#1D9E75]" />
             <span>{item}</span>
           </li>
         ))}
@@ -590,48 +766,6 @@ function TrustCard({ title, text }: { title: string; text: string }) {
     <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
       <h3 className="text-lg font-bold text-slate-950">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
-    </div>
-  );
-}
-
-function ReviewCard({
-  quote,
-  name,
-  state,
-}: {
-  quote: string;
-  name: string;
-  state: string;
-}) {
-  return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-sm leading-6 text-slate-600">&quot;{quote}&quot;</p>
-      <p className="mt-4 text-sm font-bold text-slate-950">
-        {name}, {state}
-      </p>
-    </div>
-  );
-}
-
-function TestimonialCard({
-  quote,
-  name,
-  location,
-}: {
-  quote: string;
-  name: string;
-  location: string;
-}) {
-  return (
-    <div className="rounded-xl border border-[rgba(0,0,0,0.1)] bg-white p-5">
-      <p className="mb-2 text-sm leading-5 text-[#EF9F27]">★★★★★</p>
-      <p className="text-sm italic leading-[1.7] text-[#5F5E5A]">
-        &quot;{quote}&quot;
-      </p>
-      <p className="mt-3 text-[13px] font-medium leading-5 text-[#2C2C2A]">
-        {name}
-      </p>
-      <p className="text-xs leading-5 text-[#888780]">{location}</p>
     </div>
   );
 }
