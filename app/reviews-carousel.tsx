@@ -9,79 +9,91 @@ type Review = {
 };
 
 export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
-  const [activePage, setActivePage] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   useEffect(() => {
-    function syncCardsPerPage() {
-      setCardsPerPage(window.innerWidth < 768 ? 1 : 3);
+    function syncVisibleCount() {
+      setVisibleCount(window.innerWidth < 768 ? 1 : 3);
+      setActiveIndex(0);
     }
 
-    syncCardsPerPage();
-    window.addEventListener("resize", syncCardsPerPage);
+    syncVisibleCount();
+    window.addEventListener("resize", syncVisibleCount);
 
-    return () => window.removeEventListener("resize", syncCardsPerPage);
+    return () => window.removeEventListener("resize", syncVisibleCount);
   }, []);
 
-  const pages = useMemo(() => {
-    const chunks: Review[][] = [];
-
-    for (let index = 0; index < reviews.length; index += cardsPerPage) {
-      chunks.push(reviews.slice(index, index + cardsPerPage));
-    }
-
-    return chunks;
-  }, [cardsPerPage, reviews]);
-
-  const safeActivePage = pages.length ? activePage % pages.length : 0;
+  const pageCount = useMemo(
+    () => Math.ceil(reviews.length / visibleCount),
+    [reviews.length, visibleCount],
+  );
+  const maxStartIndex = Math.max(reviews.length - visibleCount, 0);
+  const safeActiveIndex =
+    activeIndex > maxStartIndex ? 0 : Math.max(activeIndex, 0);
+  const activePage = Math.floor(safeActiveIndex / visibleCount);
+  const slideStep =
+    visibleCount === 1
+      ? "calc(100% + 16px)"
+      : "calc(((100% - 32px) / 3) + 16px)";
 
   useEffect(() => {
-    if (isPaused || pages.length <= 1) {
+    if (isPaused || reviews.length <= visibleCount) {
       return;
     }
 
     const timer = window.setInterval(() => {
-      setActivePage((current) => (current + 1) % pages.length);
+      setActiveIndex((current) => {
+        const nextIndex = current + visibleCount;
+
+        return nextIndex > maxStartIndex ? 0 : nextIndex;
+      });
     }, 4000);
 
     return () => window.clearInterval(timer);
-  }, [isPaused, pages.length]);
+  }, [isPaused, maxStartIndex, reviews.length, visibleCount]);
 
   function goToPrevious() {
-    setActivePage((current) => (current - 1 + pages.length) % pages.length);
+    setActiveIndex((current) => {
+      const previousIndex = current - visibleCount;
+
+      return previousIndex < 0 ? maxStartIndex : previousIndex;
+    });
   }
 
   function goToNext() {
-    setActivePage((current) => (current + 1) % pages.length);
+    setActiveIndex((current) => {
+      const nextIndex = current + visibleCount;
+
+      return nextIndex > maxStartIndex ? 0 : nextIndex;
+    });
   }
 
   return (
     <div
-      className="relative w-full"
+      className="relative min-h-[280px] w-full overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="overflow-hidden">
+      <div className="min-h-[240px]">
         <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${safeActivePage * 100}%)` }}
+          className="flex items-stretch gap-4 transition-transform duration-500 ease-in-out"
+          style={{
+            transform: `translateX(calc(-${safeActiveIndex} * ${slideStep}))`,
+          }}
         >
-          {pages.map((page, pageIndex) => (
+          {reviews.map((review, reviewIndex) => (
             <div
-              key={page.map((review) => review.name).join("-")}
-              aria-hidden={pageIndex !== safeActivePage}
-              className="grid min-w-full gap-4 md:grid-cols-3"
+              key={`${review.name}-${review.location}`}
+              className="box-border flex min-h-[200px] w-full min-w-full shrink-0 px-4 md:min-w-[calc(33.333%-11px)] md:px-0"
             >
-              {page.map((review, reviewIndex) => (
-                <TestimonialCard
-                  key={`${review.name}-${review.location}`}
-                  quote={review.quote}
-                  name={review.name}
-                  location={review.location}
-                  animationDelay={`${reviewIndex * 0.1}s`}
-                />
-              ))}
+              <TestimonialCard
+                quote={review.quote}
+                name={review.name}
+                location={review.location}
+                animationDelay={`${Math.min(reviewIndex, 2) * 0.1}s`}
+              />
             </div>
           ))}
         </div>
@@ -104,15 +116,15 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
         ›
       </button>
 
-      <div className="mt-6 flex justify-center gap-1.5">
-        {pages.map((page, index) => (
+      <div className="mt-6 hidden justify-center gap-1.5 md:flex">
+        {Array.from({ length: pageCount }).map((_, index) => (
           <button
-            key={page.map((review) => review.name).join("-")}
+            key={`review-dot-${index}`}
             type="button"
             aria-label={`Show review set ${index + 1}`}
-            onClick={() => setActivePage(index)}
+            onClick={() => setActiveIndex(index * visibleCount)}
             className={`h-2 w-2 rounded-full ${
-              index === safeActivePage ? "bg-[#042C53]" : "bg-[#D3D1C7]"
+              index === activePage ? "bg-[#042C53]" : "bg-[#D3D1C7]"
             }`}
           />
         ))}
@@ -134,7 +146,7 @@ function TestimonialCard({
 }) {
   return (
     <div
-      className="animate-on-scroll h-full rounded-xl border border-[rgba(0,0,0,0.1)] bg-white p-5"
+      className="animate-on-scroll visible box-border flex h-auto min-h-[180px] w-full flex-col rounded-xl border border-[rgba(0,0,0,0.1)] bg-white p-5 opacity-100"
       style={{ transitionDelay: animationDelay }}
     >
       <p className="mb-2 text-sm leading-5 text-[#EF9F27]">★★★★★</p>
