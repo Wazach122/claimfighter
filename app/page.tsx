@@ -2,6 +2,7 @@ import Link from "next/link";
 import FaqAccordion from "./faq-accordion";
 import MobileNav from "./mobile-nav";
 import ReviewsCarousel from "./reviews-carousel";
+import ScrollAnimations from "./scroll-animations";
 import { HipaaBadge, ShieldCheckIcon } from "./trust-badges";
 import UploadBox from "./upload-box";
 
@@ -17,13 +18,6 @@ const trustBarItems = [
   "All 50 states",
   "Under 10 minutes",
   "Free to try",
-];
-
-const valueStrip = [
-  "Understand confusing denial letters",
-  "See the reason in simple words",
-  "Review details before drafting",
-  "Download a clean appeal letter",
 ];
 
 const whatYouGet = [
@@ -277,6 +271,7 @@ const faqs = [
 export default function Home() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-white text-slate-950">
+      <ScrollAnimations />
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-4 sm:px-8 lg:px-10">
           <a href="#" className="text-lg font-bold tracking-tight text-slate-950">
@@ -309,7 +304,7 @@ export default function Home() {
       </header>
 
       <section className="mx-auto flex w-full max-w-[1100px] flex-col items-center overflow-hidden px-6 py-14 text-center lg:py-20">
-        <div className="mx-auto flex min-w-0 max-w-[760px] flex-col items-center text-center">
+        <div className="mx-auto flex min-w-0 max-w-[680px] flex-col items-center text-center">
           <div className="mx-auto mb-3 flex flex-wrap items-center justify-center gap-2.5 text-center">
             <span className="text-[22px] leading-none tracking-[2px] text-[#EF9F27]">
               ★★★★★
@@ -319,7 +314,7 @@ export default function Home() {
             </span>
             <span className="h-5 border-l border-[#D3D1C7]" aria-hidden="true" />
             <span className="text-[13px] leading-5 text-[#5F5E5A]">
-              33 verified reviews
+              verified reviews
             </span>
             <span className="h-5 border-l border-[#D3D1C7]" aria-hidden="true" />
             <span className="inline-flex items-center gap-1.5 text-[13px] font-medium leading-5 text-[#1D9E75]">
@@ -360,7 +355,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <HeroMockup />
+        <SocialProofTrustBlock />
       </section>
 
       <section className="border-y border-[rgba(0,0,0,0.08)] bg-[#F1EFE8] px-6 py-[14px]">
@@ -368,7 +363,8 @@ export default function Home() {
           {trustBarItems.map((item) => (
             <div
               key={item}
-              className="flex items-center justify-center gap-1.5 text-[13px] leading-5 text-[#5F5E5A]"
+              className="animate-on-scroll flex items-center justify-center gap-1.5 text-[13px] leading-5 text-[#5F5E5A]"
+              style={{ transitionDelay: `${trustBarItems.indexOf(item) * 0.05}s` }}
             >
               <span className="font-semibold text-[#1D9E75]">✓</span>
               <span>{item}</span>
@@ -380,7 +376,11 @@ export default function Home() {
       <section className="bg-[#042C53] px-6 py-8">
         <div className="mx-auto grid max-w-[1100px] grid-cols-2 gap-4 text-center md:flex md:flex-wrap md:justify-evenly">
           {statsStrip.map((stat) => (
-            <div key={stat.label} className="min-w-32">
+            <div
+              key={stat.label}
+              className="animate-on-scroll min-w-32"
+              style={{ transitionDelay: `${statsStrip.indexOf(stat) * 0.1}s` }}
+            >
               <p className="text-[28px] font-medium leading-8 text-white">
                 {stat.value}
               </p>
@@ -392,22 +392,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid w-full max-w-[1100px] gap-4 px-6 py-8 md:grid-cols-4">
-          {valueStrip.map((item) => (
-            <div
-              key={item}
-              className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold leading-6 text-slate-700 shadow-sm"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
+      <section className="mx-auto w-full max-w-[1100px] px-6 pb-16 pt-16">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             Denial letters are confusing on purpose. Your next step should not
             be.
           </h2>
@@ -436,7 +423,7 @@ export default function Home() {
 
       <section id="how-it-works" className="bg-slate-50">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
-          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             How it works
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -444,16 +431,19 @@ export default function Home() {
               step="1"
               title="Upload your denial letter"
               text="Take a clear photo of the letter from your insurance company."
+              animationDelay="0s"
             />
             <StepCard
               step="2"
               title="Get a plain-English summary"
               text="ClaimFighter helps identify the denial reason, type, and key details."
+              animationDelay="0.15s"
             />
             <StepCard
               step="3"
               title="Draft your appeal letter"
               text="Review the details, generate your draft, and download it as a PDF."
+              animationDelay="0.3s"
             />
           </div>
         </div>
@@ -462,7 +452,7 @@ export default function Home() {
       <section id="upload" className="scroll-mt-24 bg-white">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
           <div className="mx-auto mb-8 max-w-3xl text-center">
-            <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
               Start with your denial letter
             </h2>
             <p className="mt-4 text-center text-lg leading-8 text-slate-600">
@@ -484,7 +474,7 @@ export default function Home() {
           <p className="text-center text-sm font-bold uppercase tracking-[0.18em] text-blue-700">
             Sample ClaimFighter output
           </p>
-          <h2 className="mx-auto mt-3 max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto mt-3 max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             See the denial in plain English
           </h2>
         </div>
@@ -503,14 +493,15 @@ export default function Home() {
 
       <section id="what-you-get" className="bg-slate-50">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
-          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             What you get
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {whatYouGet.map((item) => (
               <div
                 key={item}
-                className="rounded-3xl border border-slate-200 bg-white p-6 text-base font-bold text-slate-950 shadow-sm"
+                className="animate-on-scroll rounded-3xl border border-slate-200 bg-white p-6 text-base font-bold text-slate-950 shadow-sm"
+                style={{ transitionDelay: `${whatYouGet.indexOf(item) * 0.1}s` }}
               >
                 {item}
               </div>
@@ -521,8 +512,8 @@ export default function Home() {
 
       <section className="bg-white">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
-          <h2 className="mx-auto max-w-[600px] text-center text-[22px] font-medium tracking-tight text-[#2C2C2A]">
-            What 33 people are saying
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-[22px] font-medium tracking-tight text-[#2C2C2A]">
+            What people are saying
           </h2>
           <p className="mb-6 mt-1.5 text-center text-[15px] leading-6 text-[#5F5E5A]">
             Real users. Real denials. Real approvals.
@@ -532,7 +523,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
-        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           Built for real denial situations
         </h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -552,7 +543,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-[1100px] px-6 py-16">
-        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           Built to keep you in control
         </h2>
         <div className="mt-8 grid gap-5 md:grid-cols-4">
@@ -577,7 +568,7 @@ export default function Home() {
 
       <section className="bg-slate-50">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16">
-          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
             From confusing letter to clear next step
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -595,7 +586,7 @@ export default function Home() {
       </section>
 
       <section id="faq" className="mx-auto w-full max-w-[1100px] px-6 py-16">
-        <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+        <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
           FAQ
         </h2>
         <div className="mx-auto max-w-4xl">
@@ -605,7 +596,7 @@ export default function Home() {
 
       <section className="bg-slate-950 text-white">
         <div className="mx-auto w-full max-w-[1100px] px-6 py-16 text-center">
-          <h2 className="mx-auto max-w-[600px] text-center text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="animate-on-scroll mx-auto max-w-[680px] text-center text-3xl font-bold tracking-tight sm:text-4xl">
             Ready to review your denial letter?
           </h2>
           <p className="mt-4 text-lg leading-8 text-slate-300">
@@ -652,48 +643,49 @@ export default function Home() {
   );
 }
 
-function HeroMockup() {
+function SocialProofTrustBlock() {
   return (
-    <div className="mx-auto mt-6 w-full max-w-[860px] min-w-0 rounded-[2rem] border border-slate-200 bg-slate-50 p-4 shadow-xl shadow-slate-200/60 sm:p-6">
-      <div className="min-w-0 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold text-slate-500">
-              ClaimFighter preview
-            </p>
-            <p className="mt-1 text-xl font-bold text-slate-950">
-              Before and after
-            </p>
-          </div>
-          <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
-            Example
-          </span>
-        </div>
-        <div className="grid min-w-0 gap-4 md:grid-cols-2">
-          <div className="min-w-0 rounded-2xl border border-red-100 bg-[#FCEBEB] p-4 [border-left:2px_solid_#F09595]">
-            <p className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#A32D2D]">
-              Insurance letter says
-            </p>
-            <p className="mt-3 break-words text-sm italic leading-6 text-[#5F3434]">
-              &quot;The requested service has been denied as it does not meet
-              the criteria for medical necessity per plan guidelines Section
-              12.4(b).&quot;
-            </p>
-          </div>
-          <div className="min-w-0 rounded-2xl border border-emerald-100 bg-[#E1F5EE] p-4 [border-left:2px_solid_#5DCAA5]">
-            <p className="text-[10px] font-medium uppercase tracking-[0.06em] text-[#0F6E56]">
-              ClaimFighter explains
-            </p>
-            <p className="mt-3 break-words text-sm leading-6 text-[#174F40]">
-              Your insurer says the treatment wasn&apos;t medically necessary.
-              You can appeal by getting a letter from your doctor explaining why
-              it was needed. ClaimFighter drafts the appeal for you.
-            </p>
-            <button className="mt-4 min-h-10 max-w-full rounded-full bg-[#1D9E75] px-4 text-sm font-semibold text-white">
-              Download appeal PDF
-            </button>
-          </div>
-        </div>
+    <div className="mx-auto mt-8 flex w-full max-w-[720px] flex-wrap justify-center gap-4">
+      <div
+        className="animate-on-scroll mx-auto w-full max-w-[300px] rounded-xl bg-white px-5 py-4 text-left shadow-[0_2px_12px_rgba(0,0,0,0.08)] md:mx-0 md:max-w-[220px]"
+        style={{ transitionDelay: "0.2s" }}
+      >
+        <p className="text-[13px] leading-4 text-[#EF9F27]">★★★★★</p>
+        <p className="mt-1.5 text-[13px] italic leading-5 text-[#2C2C2A]">
+          &quot;Got my MRI denial overturned in 8 days.&quot;
+        </p>
+        <p className="mt-2 text-[11px] leading-4 text-[#888780]">
+          Michael T. · Florida
+        </p>
+      </div>
+
+      <div
+        className="animate-on-scroll mx-auto w-full max-w-[300px] rounded-xl bg-[#042C53] px-6 py-5 text-center shadow-[0_4px_16px_rgba(4,44,83,0.2)] md:mx-0 md:max-w-[180px]"
+        style={{ transitionDelay: "0.35s" }}
+      >
+        <p className="text-[11px] uppercase leading-4 tracking-[0.06em] text-[#85B7EB]">
+          Average result
+        </p>
+        <p className="mt-1 text-4xl font-semibold leading-none text-white">
+          75%
+        </p>
+        <p className="mt-1 text-xs leading-4 text-[#85B7EB]">
+          of appeals succeed
+        </p>
+      </div>
+
+      <div
+        className="animate-on-scroll mx-auto w-full max-w-[300px] rounded-xl bg-white px-5 py-4 text-left shadow-[0_2px_12px_rgba(0,0,0,0.08)] md:mx-0 md:max-w-[220px]"
+        style={{ transitionDelay: "0.5s" }}
+      >
+        <p className="text-[13px] leading-4 text-[#EF9F27]">★★★★★</p>
+        <p className="mt-1.5 text-[13px] italic leading-5 text-[#2C2C2A]">
+          &quot;Finally something that fights back. My appeal PDF looked
+          professional.&quot;
+        </p>
+        <p className="mt-2 text-[11px] leading-4 text-[#888780]">
+          Sarah M. · Texas
+        </p>
       </div>
     </div>
   );
@@ -745,13 +737,18 @@ function StepCard({
   step,
   title,
   text,
+  animationDelay,
 }: {
   step: string;
   title: string;
   text: string;
+  animationDelay: string;
 }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div
+      className="animate-on-scroll rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+      style={{ transitionDelay: animationDelay }}
+    >
       <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-lg font-bold text-blue-700">
         {step}
       </div>

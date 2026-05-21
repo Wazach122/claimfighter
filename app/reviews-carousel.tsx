@@ -73,12 +73,13 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
               aria-hidden={pageIndex !== safeActivePage}
               className="grid min-w-full gap-4 md:grid-cols-3"
             >
-              {page.map((review) => (
+              {page.map((review, reviewIndex) => (
                 <TestimonialCard
                   key={`${review.name}-${review.location}`}
                   quote={review.quote}
                   name={review.name}
                   location={review.location}
+                  animationDelay={`${reviewIndex * 0.1}s`}
                 />
               ))}
             </div>
@@ -124,13 +125,18 @@ function TestimonialCard({
   quote,
   name,
   location,
+  animationDelay,
 }: {
   quote: string;
   name: string;
   location: string;
+  animationDelay: string;
 }) {
   return (
-    <div className="h-full rounded-xl border border-[rgba(0,0,0,0.1)] bg-white p-5">
+    <div
+      className="animate-on-scroll h-full rounded-xl border border-[rgba(0,0,0,0.1)] bg-white p-5"
+      style={{ transitionDelay: animationDelay }}
+    >
       <p className="mb-2 text-sm leading-5 text-[#EF9F27]">★★★★★</p>
       <p className="text-sm italic leading-[1.7] text-[#5F5E5A]">
         &quot;{quote}&quot;

@@ -16,7 +16,11 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
         const isOpen = openIndex === index;
 
         return (
-          <div key={faq.question}>
+          <div
+            key={faq.question}
+            className="animate-on-scroll"
+            style={{ transitionDelay: `${index * 0.1}s` }}
+          >
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
